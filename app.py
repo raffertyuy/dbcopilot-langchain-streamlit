@@ -102,12 +102,40 @@ dbagent = SqlAgent(llm=llm, db=dbutility.db, verbose=True)
 
 # Streamlit App
 st.title("👨‍💻 Chat with your Database")
-st.write("This is a app that allows you to query your database using natural language.")
+st.write("Query your database using natural language and output the results as a table, bar chart, line chart, or a plain answer.")
+st.caption("This app is using the [Northwind Traders](https://github.com/raffertyuy/RazGPT/tree/main/sampledata) sample database.")
 
-query = st.text_area("What do you want to ask?")
+tabAgent, tabSP = st.tabs(["🧑‍🏭 Agent (Experimental)", "📝 Stored Procedures"])
 
-if st.button("Submit Query", type="primary"):
-    response = dbagent.Query(query=query)
+with tabAgent:
+    st.header("Ask anything about your data")
+    st.markdown("""> ⚠️**WARNING:** This is an experimental feature using LangChain agents.
+> - retrieval of data may take a long time,
+> - the results may not be accurate,
+> - using this may cause issues to the database, please DO NOT use this in production.""")
+    
+    st.caption("""Here are some sample queries:
+- _List down the details of 5 customers._
+- _Categorize the first 10 customers by their country and display in a bar chart._""")
+    
+    agentQuery = st.text_area("What do you want to ask?", key="textAgentQuery")
+    if st.button("Submit Query", key="submitAgentQuery", type="primary"):
+        agentResponse = dbagent.Query(query=agentQuery)
 
-    decoded_response = DecodeResponse(response)
-    WriteResponse(decoded_response)
+        decodedResponse = DecodeResponse(agentResponse)
+        WriteResponse(decodedResponse)
+
+
+with tabSP:
+    st.subheader("**_🚧 NOTE: This feature is still under development. 🚧_**")
+    
+    st.header("Step 1: Retrieve Data")
+    st.selectbox('Which data do you want to retrieve?', ('Customers', 'Orders', 'Products'))
+    st.write("DATA TABLE HERE")
+    
+    st.divider()
+    
+    st.header("Step 2: Ask your Data")
+    dataQuery = st.text_area("What do you want to ask?", key="textDataQuery")
+    if st.button("Submit Query", key="submitDataQuery", type="primary"):
+        st.write("RESPONSE HERE")

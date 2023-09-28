@@ -11,7 +11,7 @@ This app is envisioned to grow. Here are the initial ideas:
 
 ## Running Locally
 - Install python libraries `pip install -r requirements.txt`
-- Run `streamlit run app.py`
+- Run `streamlit run app.py` or `start.bat`
 
 
 ## Other Files
