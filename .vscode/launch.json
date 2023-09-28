@@ -1,0 +1,22 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Streamlit: Current File",
+            "type": "python",
+            "request": "launch",
+            "module": "streamlit",
+            "env": {
+                // any .env variables you may have
+                "STREAMLIT_APP": "${file}",
+                "STREAMLIT_ENV": "development",
+            },
+            "args": [
+                "run",
+                "${file}"
+            ],
+            "jinja": true,
+            "justMyCode": true
+        }
+    ]
+}
