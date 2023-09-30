@@ -1,32 +1,15 @@
-import os
-from dotenv import load_dotenv
 import streamlit as st
 
-from langchain.llms import AzureOpenAI
-
-from utilities.SqlDbUtility import SqlDbUtility
-from utilities.SqlAgent import SqlAgent
-import utilities.Common as Common
+from util.SqlDbUtility import SqlDbUtility
+from util.SqlAgent import SqlAgent
+import util.Common as Common
 
 st.set_page_config(
     page_title="DB Copilot - SQL Agent | RazType",
     page_icon="🧑‍🏭")
 
 
-load_dotenv()
-
-COMPLETION_MODEL = os.environ["OPENAI_COMPLETION_MODEL"]
-COMPLETION_DEPLOYMENT = os.environ["OPENAI_COMPLETION_DEPLOYMENT"]
-OPENAI_API_VERSION = os.environ["OPENAI_API_VERSION"]
-OPENAI_TEMPERATURE = float(os.environ["OPENAI_TEMPERATURE"])
-
-llm = AzureOpenAI(
-    model_name=COMPLETION_MODEL,
-    deployment_name=COMPLETION_DEPLOYMENT,
-    temperature=OPENAI_TEMPERATURE,
-    verbose=True
-)
-
+llm = Common.GetLlm()
 dbutility = SqlDbUtility()
 dbagent = SqlAgent(llm=llm, db=dbutility.db, verbose=True)
 

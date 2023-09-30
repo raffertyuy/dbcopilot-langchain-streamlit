@@ -3,6 +3,41 @@ import pandas as pd
 import json
 import re
 
+import os
+from dotenv import load_dotenv
+from langchain.schema.language_model import BaseLanguageModel
+from langchain.llms import AzureOpenAI
+
+@st.cache_data
+def GetLlm() -> BaseLanguageModel:
+    """
+    Get the LangChain Language Model (LLM) from the session state.
+
+    Args:
+        None.
+
+    Returns:
+        BaseLanguageModel: The LangChain Base Language Model (LLM).
+    """
+    if 'llm' not in st.session_state:
+        load_dotenv()
+
+        COMPLETION_MODEL = os.environ["OPENAI_COMPLETION_MODEL"]
+        COMPLETION_DEPLOYMENT = os.environ["OPENAI_COMPLETION_DEPLOYMENT"]
+        OPENAI_API_VERSION = os.environ["OPENAI_API_VERSION"]
+        OPENAI_TEMPERATURE = float(os.environ["OPENAI_TEMPERATURE"])
+
+        st.session_state['llm'] = AzureOpenAI(
+            model_name=COMPLETION_MODEL,
+            deployment_name=COMPLETION_DEPLOYMENT,
+            openai_api_version=OPENAI_API_VERSION,
+            temperature=OPENAI_TEMPERATURE,
+            verbose=True
+        )
+    
+    return st.session_state['llm']
+
+
 def DecodeResponse(response: str) -> dict:
     """This function converts the string response from the model to a dictionary object.
 
