@@ -9,7 +9,7 @@ Pre-requisites:
 - Install [Python](https://python.org)
 - Install Python libraries `pip install -r requirements.txt`
 
-Run `start.bat` or `streamlit run Hello.py`
+Run `start.bat` or `streamlit run app/Hello.py`
 
 
 ## Other Files

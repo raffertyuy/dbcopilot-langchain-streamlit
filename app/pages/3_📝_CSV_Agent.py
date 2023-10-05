@@ -8,6 +8,10 @@ st.set_page_config(
     page_title="DB Copilot - CSV Agent | RazType",
     page_icon="📝")
 
+@st.cache_data
+def ReadCsv(filename):
+    df = pd.read_csv(filename)
+    return df
 
 # Streamlit App
 st.title("📝 Chat with your CSV Data using the LangChain Pandas DataFrame Agent")
@@ -23,7 +27,7 @@ st.caption("""Here are some sample queries for using [`books.csv`](https://githu
 
 filename = st.file_uploader("Step 1: Upload CSV")
 if filename is not None:
-    df = pd.read_csv(filename)
+    df = ReadCsv(filename)
     st.dataframe(df)
     
     query = st.text_area("Step 2: Ask your Data", key="textDataCsv")

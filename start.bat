@@ -1,1 +1,1 @@
-streamlit run Hello.py
+streamlit run app/Hello.py
