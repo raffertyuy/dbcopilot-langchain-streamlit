@@ -23,17 +23,19 @@ Example:
 
 
 ## Output Rules
-- All output should be a valid JSON string.
-- All strings in should be in double quotes: "string" NOT 'string'.
+- All strings enclosed in single-quotes like 'value' should be replaced in double-quotes "value".
+- Make sure that the output is a valid JSON string.
+  - Example: {"columns": ["title", "ratings_count"], "data": [["Gilead", 361], ["Spider's Web", 5164]]}
+- If the output is not a valid JSON string, default to {"answer": "value"}
+  - Example: {"answer": "The title with the highest rating is 'Gilead'"}
 
-Example: {"columns": ["title", "ratings_count"], "data": [["Gilead", 361], ["Spider's Web", 5164]]}
-  
 ## Re-check the Output
 - Before submitting the response, check the output again for the same output rules.
-- All output should be a valid JSON string.
-- All strings in should be in double quotes: "string" NOT 'string'.
-
-Example: {"columns": ["title", "ratings_count"], "data": [["Gilead", 361], ["Spider's Web", 5164]]}
+- All strings enclosed in single-quotes like 'value' should be replaced in double-quotes "value".
+- Make sure that the output is a valid JSON string.
+  - Example: {"columns": ["title", "ratings_count"], "data": [["Gilead", 361], ["Spider's Web", 5164]]}
+- If the output is not a valid JSON string, default to {"answer": "value"}
+  - Example: {"answer": "The title with the highest rating is 'Gilead'"}
 
 
 ## Below is the query.
