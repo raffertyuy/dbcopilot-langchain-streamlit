@@ -3,16 +3,16 @@
     "contentVersion": "1.0.0.1",
     "parameters": {
         "webAppName": {
-            "value": "streamlit-azure-app-services-example"
+            "value": "dbcopilot-langchain-streamlit"
         },
         "sku": {
             "value": "B1"
         },
         "linuxFxVersion": {
-            "value": "PYTHON|3.7"
+            "value": "PYTHON|3.11"
         },
         "repoUrl": {
-            "value": "https://github.com/benalexkeen/streamlit-azure-app-services.git"
+            "value": "https://github.com/raffertyuy/dbcopilot-langchain-streamlit.git"
         },
         "repoBranch": {
             "value": "main"

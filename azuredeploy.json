@@ -40,14 +40,14 @@
       },
       "linuxFxVersion": {
         "type": "string",
-        "defaultValue": "PYTHON|3.7",
+        "defaultValue": "PYTHON|3.11",
         "metadata": {
           "description": "The Runtime stack of current web app"
         }
       },
       "repoUrl": {
         "type": "string",
-        "defaultValue": "https://github.com/benalexkeen/streamlit-azure-app-services.git",
+        "defaultValue": "https://github.com/raffertyuy/dbcopilot-langchain-streamlit.git",
         "metadata": {
           "description": "Git Repo URL"
         }
