@@ -12,6 +12,9 @@ Pre-requisites:
 Run `start.bat` or `streamlit run app/Hello.py`
 
 
+## Deploy to Azure
+[![Deploy To Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fraffertyuy%2Fdbcopilot-langchain-streamlit%2Fmain%2Fazuredeploy.json)
+
 ## Other Files
 To keep this repo clean, and for my own organization, I opted to not place any extra files onto this repo.
 My Jupyter notebooks and the sample database that I'm using are in [RazGPT](https://github.com/raffertyuy/RazGPT).
