@@ -1,1 +1,1 @@
-streamlit run app/Hello.py
+streamlit run app/Hello.py --server.port 8000
