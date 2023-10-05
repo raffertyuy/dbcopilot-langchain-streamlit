@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 import json
 import re
+import numpy as np
 
 import os
 from dotenv import load_dotenv
@@ -37,8 +38,26 @@ def GetLlm() -> BaseLanguageModel:
     
     return st.session_state['llm']
 
+def PadData(data):
+    """This function pads the data with NaN values to make the arrays of equal length. The purpose is to fix the frequent Pandas error "ValueError: All arrays must be of the same length"
 
-def DecodeResponse(response: str) -> dict:
+    Args:
+        data (dict): The data dictionary to pad.
+
+    Returns:
+        dict: The padded data dictionary.
+    """
+    # Find the length of the longest array
+    max_len = max(len(v) for v in data.values())
+
+    # Pad the shorter arrays with NaN values
+    for k, v in data.items():
+        if len(v) < max_len:
+            data[k] = np.pad(v, (0, max_len - len(v)), mode='constant', constant_values=np.nan)
+
+    return data
+
+def ConvertStringResponseToDict(response: str) -> dict:
     """This function converts the string response from the model to a dictionary object.
 
     Args:
@@ -47,9 +66,21 @@ def DecodeResponse(response: str) -> dict:
     Returns:
         dict: dictionary with response data
     """
+    
     for i in range(5): # try 5 times
         try:
-            result = json.loads(response)   # try to parse...
+            ### DEBUG CODE #############################################
+            print ("ConvertStringResponseToDict Attempt #" + str(i+1))
+            print(response) # DEBUG
+            ############################################################
+            
+            result = json.loads(response)
+            
+            ### DEBUG CODE #############################################
+            print ("\n\nJSON Load Response")
+            print(result) # DEBUG
+            ############################################################
+            
             return result
         except Exception as e:
             # "Expecting , delimiter: line 34 column 54 (char 1158)"
@@ -65,7 +96,7 @@ def DecodeResponse(response: str) -> dict:
     raise Exception("Failed to decode response after 5 attempts.\n" + response + "\n")
 
 
-def WriteResponse(response_dict: dict):
+def WriteStreamlitResponse(response_dict: dict):
     """
     Write a response from an agent to a Streamlit app.
 
@@ -83,14 +114,16 @@ def WriteResponse(response_dict: dict):
     # Check if the response is a bar chart.
     if "bar" in response_dict:
         data = response_dict["bar"]
-        df = pd.DataFrame(data)
+        paddeddata = PadData(data)
+        df = pd.DataFrame(paddeddata)
         df.set_index("columns", inplace=True)
         st.bar_chart(df)
 
     # Check if the response is a line chart.
     if "line" in response_dict:
         data = response_dict["line"]
-        df = pd.DataFrame(data)
+        paddeddata = PadData(data)
+        df = pd.DataFrame(paddeddata)
         df.set_index("columns", inplace=True)
         st.line_chart(df)
 

@@ -25,11 +25,13 @@ st.markdown("""> ⚠️**WARNING:** This is an experimental feature using LangCh
 
 st.caption("""Here are some sample queries:
 - _List down the details of 5 customers._
-- _Categorize the first 10 customers by their country and display in a bar chart._""")
+- _How many customers are there per country?_""")
 
 agentQuery = st.text_area("What do you want to ask?", key="textAgentQuery")
 if st.button("Submit Query", key="submitAgentQuery", type="primary"):
     agentResponse = dbagent.Query(query=agentQuery)
 
-    decodedResponse = Common.DecodeResponse(agentResponse)
-    Common.WriteResponse(decodedResponse)
+    #decodedResponse = Common.DecodeResponse(agentResponse)
+    #Common.WriteResponse(decodedResponse)
+    
+    st.write(agentResponse)

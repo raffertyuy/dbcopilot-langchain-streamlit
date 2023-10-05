@@ -22,7 +22,7 @@ st.caption("""Here are some sample queries for using [`books.csv`](https://githu
 - _Which book has the highest rating count?_
 - _Tabulate the first 5 books. Include the title and the rating count columns only._
 - _Create a bar graph on the first 5 books._
-- _Create a line graph of the first 5 books._
+- _For the books by Sidney Sheldon , create a line graph with published year on the x-axis and average rating on the y-axis._
 """)
 
 filename = st.file_uploader("Step 1: Upload CSV")
@@ -36,5 +36,5 @@ if filename is not None:
         agent = DataFrameAgent(llm=llm, df=df, verbose=True)
 
         response = agent.Query(query=query)
-        decodedResponse = Common.DecodeResponse(response)
-        Common.WriteResponse(decodedResponse)
+        decodedResponse = Common.ConvertStringResponseToDict(response)
+        Common.WriteStreamlitResponse(decodedResponse)

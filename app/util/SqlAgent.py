@@ -39,7 +39,8 @@ class SqlAgent:
             The response from the agent as a string.
         """
 
-        prompt = Prompts.QUERY_PROMPT + query
+        #prompt = Prompts.QUERY_PROMPT + query
+        prompt = query
         response = self.agent.run(prompt)
 
         return response.__str__()
