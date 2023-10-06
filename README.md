@@ -19,11 +19,12 @@ Run `start.bat` or `streamlit run app/Hello.py`
 
 1. [![Deploy To Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fraffertyuy%2Fdbcopilot-langchain-streamlit%2Fmain%2Fazuredeploy.json)
 2. Update the **Configuration** of the deployed App Service
+  - In General Settings, double check Startup Command to be `python -m streamlit run app/Hello.py --server.port 8000 --server.address 0.0.0.0` (make sure)
   - In General Settings, enable _Basic Auth Publishing_
   - In Application Settings, add the values in your .env variables
   - In Application Settings, add the following additional settings:
     - **ENABLE_ORYX_BUILD**: True
-    - **SCM_DO_BUILD_DURING_DEPLOYMENT**: True
+    - **SCM_DO_BUILD_DURING_DEPLOYMENT**: 1
 
 Here is an example of the App Service Configuration
 ```json
